@@ -1,0 +1,24 @@
+services:
+  app2:
+    image: planes_image:v02
+    container_name: planes_app2
+    depends_on:
+      - postgresql
+    environment:
+      DB_HOST: planes_postgresql  # use container_name of postgresql container (docker-compose supports DNS) planes_postgresql/host.docker.internal
+      DB_NAME: planes1
+      DB_USER: postgres
+      DB_PASSWORD: 12346
+    ports:
+      - "8081:8080"
+
+  postgresql:
+    image: postgres:15.2-alpine
+    pull_policy: missing
+    container_name: planes_postgresql
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12346
+      POSTGRES_DB: planes1
+    ports:
+      - "5432:5432"
