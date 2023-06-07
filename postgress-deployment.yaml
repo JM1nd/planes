@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - image: postgres:15.2-alpine
+          name: planes-postgresql
+          env:
+            - name: POSTGRES_DB
+              value: planes1
+            - name: POSTGRES_PASSWORD
+              value: "12346"
+            - name: POSTGRES_USER
+              value: postgres
+          ports:
+            - containerPort: 5432
